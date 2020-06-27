@@ -27,6 +27,12 @@ class LinebotController < ApplicationController
                 previewImageUrl: v['preview_url']
               }
               client.reply_message(event['replyToken'], video)
+            else
+              failure = {
+                type: 'text',
+                text: '検索ワードにヒットする動画が見つかりませんでした。'
+              }
+              client.reply_message(event['replyToken'], failure)
             end
           end
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
